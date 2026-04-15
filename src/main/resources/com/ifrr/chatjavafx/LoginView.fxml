@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+
+<VBox xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.chat.controller.LoginController"
+      spacing="16"
+      alignment="CENTER"
+      style="-fx-background-color: #f0f4f8; -fx-padding: 32;">
+
+    <!-- Título -->
+    <Label text="💬 Chat Java" style="-fx-font-size:26; -fx-font-weight:bold; -fx-text-fill:#2c3e50;"/>
+    <Label text="Conecte-se a um servidor de chat" style="-fx-text-fill:#7f8c8d; -fx-font-size:13;"/>
+
+    <Separator/>
+
+    <!-- Formulário -->
+    <GridPane hgap="10" vgap="10" alignment="CENTER">
+        <columnConstraints>
+            <ColumnConstraints minWidth="100" halignment="RIGHT"/>
+            <ColumnConstraints minWidth="220"/>
+        </columnConstraints>
+
+        <Label text="Apelido:" GridPane.rowIndex="0" GridPane.columnIndex="0"
+               style="-fx-font-weight:bold;"/>
+        <TextField fx:id="tfApelido" promptText="seu_apelido"
+                   GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+        <Label text="Host / IP:" GridPane.rowIndex="1" GridPane.columnIndex="0"
+               style="-fx-font-weight:bold;"/>
+        <TextField fx:id="tfHost" promptText="192.168.1.10"
+                   GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+        <Label text="Porta:" GridPane.rowIndex="2" GridPane.columnIndex="0"
+               style="-fx-font-weight:bold;"/>
+        <TextField fx:id="tfPorta" promptText="12345"
+                   GridPane.rowIndex="2" GridPane.columnIndex="1" maxWidth="80"/>
+
+        <CheckBox fx:id="cbServidorLocal" text="Iniciar servidor local (eu sou o host)"
+                  GridPane.rowIndex="3" GridPane.columnIndex="1"
+                  style="-fx-text-fill:#2980b9;"/>
+    </GridPane>
+
+    <Separator/>
+
+    <!-- Ações -->
+    <HBox spacing="10" alignment="CENTER">
+        <ProgressIndicator fx:id="spinner" maxWidth="24" maxHeight="24"/>
+        <Button fx:id="btnConectar" text="Conectar" onAction="#onConectar"
+                defaultButton="true"
+                style="-fx-background-color:#27ae60; -fx-text-fill:white;
+                       -fx-font-size:14; -fx-padding:8 24; -fx-background-radius:6;
+                       -fx-cursor:hand;"/>
+    </HBox>
+
+    <Label fx:id="lblStatus" text="" wrapText="true" textAlignment="CENTER"
+           style="-fx-text-fill:#c0392b;" maxWidth="340"/>
+
+</VBox>

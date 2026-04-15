@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.chat.controller.ChatController"
+            style="-fx-background-color:#ece5dd;">
+
+    <!-- ── TOPO ── -->
+    <top>
+        <HBox style="-fx-background-color:#075e54; -fx-padding:10 14;"
+              alignment="CENTER_LEFT" spacing="10">
+            <Label text="💬 Chat Java" style="-fx-text-fill:white; -fx-font-size:17; -fx-font-weight:bold;"/>
+            <Region HBox.hgrow="ALWAYS"/>
+            <Label fx:id="lblDestinatario" style="-fx-text-fill:#a8d8a8; -fx-font-size:13;"/>
+            <Label fx:id="lblStatus" text="Conectado" style="-fx-text-fill:#a8d8a8; -fx-font-size:11;"/>
+        </HBox>
+    </top>
+
+    <!-- ── CENTRO: mensagens + painel de usuários ── -->
+    <center>
+        <HBox>
+            <!-- Mensagens -->
+            <ScrollPane fx:id="scrollMensagens" HBox.hgrow="ALWAYS"
+                        fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER"
+                        style="-fx-background:#ece5dd; -fx-background-color:#ece5dd;">
+                <VBox fx:id="vboxMensagens" fillWidth="true" spacing="2"
+                      style="-fx-padding:8 0;"/>
+            </ScrollPane>
+
+            <!-- Painel lateral de usuários -->
+            <VBox minWidth="160" maxWidth="200"
+                  style="-fx-background-color:#f0f0f0; -fx-border-color:#ddd; -fx-border-width:0 0 0 1;">
+                <Label text="Usuários online" style="-fx-font-weight:bold; -fx-padding:8 10 4 10;
+                             -fx-text-fill:#075e54;"/>
+                <Separator/>
+                <Button fx:id="btnTodos" text="📢 Todos" onAction="#onTodos"
+                        maxWidth="Infinity"
+                        style="-fx-background-color:transparent; -fx-text-fill:#2980b9;
+                               -fx-font-size:12; -fx-padding:6 10; -fx-cursor:hand;"/>
+                <Separator/>
+                <Label text="(duplo-clique p/ privado)" wrapText="true"
+                       style="-fx-font-size:10; -fx-text-fill:#aaa; -fx-padding:4 8;"/>
+                <ListView fx:id="lvUsuarios" VBox.vgrow="ALWAYS"
+                          style="-fx-background-color:transparent; -fx-border-color:transparent;"/>
+            </VBox>
+        </HBox>
+    </center>
+
+    <!-- ── RODAPÉ: campo de mensagem ── -->
+    <bottom>
+        <HBox style="-fx-background-color:#f0f0f0; -fx-padding:8 10; -fx-border-color:#ddd;
+                     -fx-border-width:1 0 0 0;"
+              spacing="8" alignment="CENTER">
+            <Button fx:id="btnAnexar" text="📎📷" onAction="#onAnexar" style="-fx-font-size:18; -fx-background-color:transparent; -fx-cursor:hand;"> <tooltip>
+            <Tooltip text="Enviar foto, áudio ou vídeo" /></tooltip>
+            </Button>
+            <TextField fx:id="tfMensagem" HBox.hgrow="ALWAYS"
+                       promptText="Digite uma mensagem…"
+                       style="-fx-background-radius:20; -fx-padding:8 14;"/>
+            <Button fx:id="btnEnviar" text="Enviar ▶" onAction="#onEnviarTexto"
+                    defaultButton="true"
+                    style="-fx-background-color:#25d366; -fx-text-fill:white;
+                           -fx-background-radius:20; -fx-padding:8 16; -fx-cursor:hand;"/>
+        </HBox>
+    </bottom>
+
+</BorderPane>
