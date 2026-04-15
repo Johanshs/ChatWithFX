@@ -1,182 +1,72 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
 package com.chat.model;
 
 import java.io.Serializable;
 
-/**
- * Payload — contrato de comunicação entre cliente e servidor.
- * Trafega como JSON via ObjectOutputStream/ObjectInputStream.
- *
- * destinatario == null  →  mensagem global (broadcast)
- * destinatario != null  →  mensagem privada
- */
+
 public class Payload implements Serializable {
 
-    private static long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     private String      remetente;
     private String      destinatario;   // null = broadcast
     private TipoConteudo tipo;
-    private String      conteudo;       // texto ou, para mídia, nome do arquivo
-    private byte[]      dados;          // bytes da mídia (null para TEXTO)
-    private String      mimeType;       // ex.: "image/jpeg", "audio/mp3"
+    private String      conteudo;       
+    private byte[]      dados;          
+    private String      mimeType;       
     private long        timestamp;
 
-    // Construtores 
+    // ─── Construtores ──────────────────────────────────────────────────────────
 
     public Payload() {}
 
-    // Mensagem de texto (global ou privada)
     public static Payload texto(String remetente, String destinatario, String texto) {
         Payload p = new Payload();
-        p.setRemetente(remetente);
-        p.setDestinatario(destinatario);
-        p.setTipo(TipoConteudo.Texto);
-        p.setConteudo(texto);
-        p.setTimestamp(System.currentTimeMillis());
+        p.remetente    = remetente;
+        p.destinatario = destinatario;
+        p.tipo         = TipoConteudo.TEXTO;
+        p.conteudo     = texto;
+        p.timestamp    = System.currentTimeMillis();
         return p;
     }
 
-    // Mensagem de mídia (áudio, foto, vídeo) 
     public static Payload midia(String remetente, String destinatario,
                                 TipoConteudo tipo, String nomeArquivo,
                                 byte[] dados, String mimeType) {
         Payload p = new Payload();
-        p.setRemetente(remetente);
-        p.setDestinatario(destinatario);
-        p.setTipo(tipo);
-        p.setConteudo(nomeArquivo);
-        p.setDados(dados);
-        p.setMimeType(mimeType);
-        p.setTimestamp(System.currentTimeMillis());
+        p.remetente    = remetente;
+        p.destinatario = destinatario;
+        p.tipo         = tipo;
+        p.conteudo     = nomeArquivo;
+        p.dados        = dados;
+        p.mimeType     = mimeType;
+        p.timestamp    = System.currentTimeMillis();
         return p;
     }
 
-    /** Mensagem de sistema (lista de usuários, notificações) */
     public static Payload sistema(String conteudo) {
         Payload p = new Payload();
-        p.setRemetente("SERVIDOR");
-        p.setTipo(TipoConteudo.Sistema);
-        p.setConteudo(conteudo);
-        p.setTimestamp(System.currentTimeMillis());
+        p.remetente = "SERVIDOR";
+        p.tipo      = TipoConteudo.SISTEMA;
+        p.conteudo  = conteudo;
+        p.timestamp = System.currentTimeMillis();
         return p;
     }
 
-    public boolean isBroadcast() { return getDestinatario() == null || getDestinatario().isBlank(); }
 
-    /**
-     * @return the serialVersionUID
-     */
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    public String      getRemetente()    { return remetente; }
+    public String      getDestinatario() { return destinatario; }
+    public TipoConteudo getTipo()        { return tipo; }
+    public String      getConteudo()     { return conteudo; }
+    public byte[]      getDados()        { return dados; }
+    public String      getMimeType()     { return mimeType; }
+    public long        getTimestamp()    { return timestamp; }
 
-    /**
-     * @param aSerialVersionUID the serialVersionUID to set
-     */
-    public static void setSerialVersionUID(long aSerialVersionUID) {
-        serialVersionUID = aSerialVersionUID;
-    }
+    public void setRemetente(String v)    { remetente = v; }
+    public void setDestinatario(String v) { destinatario = v; }
+    public void setTipo(TipoConteudo v)   { tipo = v; }
+    public void setConteudo(String v)     { conteudo = v; }
+    public void setDados(byte[] v)        { dados = v; }
+    public void setMimeType(String v)     { mimeType = v; }
 
-    /**
-     * @return the remetente
-     */
-    public String getRemetente() {
-        return remetente;
-    }
-
-    /**
-     * @param remetente the remetente to set
-     */
-    public void setRemetente(String remetente) {
-        this.remetente = remetente;
-    }
-
-    /**
-     * @return the destinatario
-     */
-    public String getDestinatario() {
-        return destinatario;
-    }
-
-    /**
-     * @param destinatario the destinatario to set
-     */
-    public void setDestinatario(String destinatario) {
-        this.destinatario = destinatario;
-    }
-
-    /**
-     * @return the tipo
-     */
-    public TipoConteudo getTipo() {
-        return tipo;
-    }
-
-    /**
-     * @param tipo the tipo to set
-     */
-    public void setTipo(TipoConteudo tipo) {
-        this.tipo = tipo;
-    }
-
-    /**
-     * @return the conteudo
-     */
-    public String getConteudo() {
-        return conteudo;
-    }
-
-    /**
-     * @param conteudo the conteudo to set
-     */
-    public void setConteudo(String conteudo) {
-        this.conteudo = conteudo;
-    }
-
-    /**
-     * @return the dados
-     */
-    public byte[] getDados() {
-        return dados;
-    }
-
-    /**
-     * @param dados the dados to set
-     */
-    public void setDados(byte[] dados) {
-        this.dados = dados;
-    }
-
-    /**
-     * @return the mimeType
-     */
-    public String getMimeType() {
-        return mimeType;
-    }
-
-    /**
-     * @param mimeType the mimeType to set
-     */
-    public void setMimeType(String mimeType) {
-        this.mimeType = mimeType;
-    }
-
-    /**
-     * @return the timestamp
-     */
-    public long getTimestamp() {
-        return timestamp;
-    }
-
-    /**
-     * @param timestamp the timestamp to set
-     */
-    public void setTimestamp(long timestamp) {
-        this.timestamp = timestamp;
-    }
+    public boolean isBroadcast() { return destinatario == null || destinatario.isBlank(); }
 }

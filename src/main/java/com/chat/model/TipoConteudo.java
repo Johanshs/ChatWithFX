@@ -6,9 +6,9 @@ package com.chat.model;
 
 
 public enum TipoConteudo {
-    Texto,
-    Audio,
-    Foto,
-    Video,
-    Sistema
+    TEXTO,
+    AUDIO,
+    FOTO,
+    VIDDEO,
+    SISTEMA
 }
