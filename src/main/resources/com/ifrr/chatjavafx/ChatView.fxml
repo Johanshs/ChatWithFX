@@ -4,10 +4,9 @@
 <?import javafx.geometry.*?>
 
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.chat.controller.ChatController"
+            fx:controller="com.ifrr.controller.ChatController"
             style="-fx-background-color:#ece5dd;">
 
-    <!-- ── TOPO ── -->
     <top>
         <HBox style="-fx-background-color:#075e54; -fx-padding:10 14;"
               alignment="CENTER_LEFT" spacing="10">
@@ -18,10 +17,8 @@
         </HBox>
     </top>
 
-    <!-- ── CENTRO: mensagens + painel de usuários ── -->
     <center>
         <HBox>
-            <!-- Mensagens -->
             <ScrollPane fx:id="scrollMensagens" HBox.hgrow="ALWAYS"
                         fitToWidth="true" vbarPolicy="AS_NEEDED" hbarPolicy="NEVER"
                         style="-fx-background:#ece5dd; -fx-background-color:#ece5dd;">
@@ -29,7 +26,6 @@
                       style="-fx-padding:8 0;"/>
             </ScrollPane>
 
-            <!-- Painel lateral de usuários -->
             <VBox minWidth="160" maxWidth="200"
                   style="-fx-background-color:#f0f0f0; -fx-border-color:#ddd; -fx-border-width:0 0 0 1;">
                 <Label text="Usuários online" style="-fx-font-weight:bold; -fx-padding:8 10 4 10;
@@ -48,7 +44,6 @@
         </HBox>
     </center>
 
-    <!-- ── RODAPÉ: campo de mensagem ── -->
     <bottom>
         <HBox style="-fx-background-color:#f0f0f0; -fx-padding:8 10; -fx-border-color:#ddd;
                      -fx-border-width:1 0 0 0;"
