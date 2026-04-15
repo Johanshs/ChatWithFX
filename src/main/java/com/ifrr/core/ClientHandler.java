@@ -1,7 +1,7 @@
-package com.chat.core;
+package com.ifrr.core;
 
-import com.chat.model.Payload;
-import com.chat.model.TipoConteudo;
+import com.ifrr.model.Payload;
+import com.ifrr.model.TipoConteudo;
 
 import java.io.*;
 import java.net.Socket;

@@ -1,9 +1,9 @@
 package com.ifrr.controller;
 
-import com.chat.model.Payload;
-import com.chat.model.TipoConteudo;
-import com.chat.service.ConexaoService;
-import com.chat.service.MidiaService;
+import com.ifrr.model.Payload;
+import com.ifrr.model.TipoConteudo;
+import com.ifrr.service.ConexaoService;
+import com.ifrr.service.MidiaService;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

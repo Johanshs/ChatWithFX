@@ -1,7 +1,7 @@
-package com.chat.service;
+package com.ifrr.service;
 
-import com.chat.model.Payload;
-import com.chat.model.TipoConteudo;
+import com.ifrr.model.Payload;
+import com.ifrr.model.TipoConteudo;
 
 import java.io.File;
 import java.io.IOException;

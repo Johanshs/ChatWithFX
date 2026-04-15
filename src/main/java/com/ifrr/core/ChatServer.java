@@ -1,6 +1,6 @@
-package com.chat.core;
+package com.ifrr.core;
 
-import com.chat.model.Payload;
+import com.ifrr.model.Payload;
 
 import java.io.IOException;
 import java.net.ServerSocket;

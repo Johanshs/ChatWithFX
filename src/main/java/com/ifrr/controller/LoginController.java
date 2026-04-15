@@ -1,7 +1,7 @@
 package com.ifrr.controller;
 
-import com.chat.core.ChatServer;
-import com.chat.service.ConexaoService;
+import com.ifrr.core.ChatServer;
+import com.ifrr.service.ConexaoService;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -87,7 +87,7 @@ public class LoginController {
 
     private void abrirChat(String apelido, ConexaoService conexaoService) {
         try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/chat/view/ChatView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/ifrr/chatjavafx/ChatView.fxml"));
             Parent root = loader.load();
 
             ChatController chatCtrl = loader.getController();

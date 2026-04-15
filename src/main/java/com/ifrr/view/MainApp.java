@@ -1,4 +1,4 @@
-package com.chat.view;
+package com.ifrr.view;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -11,7 +11,7 @@ public class MainApp extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         FXMLLoader loader = new FXMLLoader(
-            getClass().getResource("/com/chat/view/LoginView.fxml"));
+            getClass().getResource("/com/ifrr/chatjavafx/LoginView.fxml"));
         Parent root = loader.load();
 
         primaryStage.setTitle("Chat — Entrar");

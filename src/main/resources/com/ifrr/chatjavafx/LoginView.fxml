@@ -5,7 +5,7 @@
 <?import javafx.geometry.*?>
 
 <VBox xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.chat.controller.LoginController"
+      fx:controller="com.ifrr.controller.LoginController"
       spacing="16"
       alignment="CENTER"
       style="-fx-background-color: #f0f4f8; -fx-padding: 32;">

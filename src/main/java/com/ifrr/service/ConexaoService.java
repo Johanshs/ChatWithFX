@@ -1,6 +1,6 @@
-package com.chat.service;
+package com.ifrr.service;
 
-import com.chat.model.Payload;
+import com.ifrr.model.Payload;
 
 import java.io.*;
 import java.net.Socket;
@@ -38,7 +38,7 @@ public class ConexaoService {
 
 
             Payload primeira = (Payload) in.readObject();
-            if (primeira.getTipo() == com.chat.model.TipoConteudo.SISTEMA
+            if (primeira.getTipo() == com.ifrr.model.TipoConteudo.SISTEMA
                     && "APELIDO_OCUPADO".equals(primeira.getConteudo())) {
                 fechar();
                 return false;

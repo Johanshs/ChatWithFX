@@ -1,4 +1,4 @@
-package com.chat.model;
+package com.ifrr.model;
  
 public class Usuario {
     private String apelido;
