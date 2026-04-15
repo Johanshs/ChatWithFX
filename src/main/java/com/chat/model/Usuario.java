@@ -22,16 +22,11 @@ public class Usuario {
  
     @Override public int hashCode() { return getApelido().hashCode(); }
 
-    /**
-     * @param apelido the apelido to set
-     */
+    
     public void setApelido(String apelido) {
         this.apelido = apelido;
     }
 
-    /**
-     * @param host the host to set
-     */
     public void setHost(String host) {
         this.host = host;
     }

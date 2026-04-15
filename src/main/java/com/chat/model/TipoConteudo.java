@@ -9,6 +9,6 @@ public enum TipoConteudo {
     TEXTO,
     AUDIO,
     FOTO,
-    VIDDEO,
+    VIDEO,
     SISTEMA
 }
