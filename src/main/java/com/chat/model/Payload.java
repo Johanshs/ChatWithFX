@@ -15,7 +15,6 @@ public class Payload implements Serializable {
     private String      mimeType;       
     private long        timestamp;
 
-    // ─── Construtores ──────────────────────────────────────────────────────────
 
     public Payload() {}
 
