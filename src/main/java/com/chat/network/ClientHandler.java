@@ -1,0 +1,101 @@
+package com.chat.network;
+
+import com.chat.model.Payload;
+import com.chat.model.TipoConteudo;
+
+import java.io.*;
+import java.net.Socket;
+import java.util.logging.Logger;
+
+/**
+ * Roda em Thread própria — representa um cliente conectado ao servidor.
+ * Lê Payloads e delega o roteamento ao ChatServer.
+ */
+public class ClientHandler implements Runnable {
+
+    private static final Logger LOG = Logger.getLogger(ClientHandler.class.getName());
+
+    private final Socket            socket;
+    private final ChatServer        server;
+    private       String            apelido;
+    private       ObjectOutputStream out;
+    private       ObjectInputStream  in;
+
+    public ClientHandler(Socket socket, ChatServer server) {
+        this.socket = socket;
+        this.server = server;
+    }
+
+    @Override
+    public void run() {
+        try {
+            out = new ObjectOutputStream(socket.getOutputStream());
+            out.flush();
+            in  = new ObjectInputStream(socket.getInputStream());
+
+            // Primeiro payload deve ser SISTEMA com o apelido
+            Payload handshake = (Payload) in.readObject();
+            this.apelido = handshake.getConteudo();
+
+            if (server.apelidoEmUso(apelido)) {
+                enviar(Payload.sistema("APELIDO_OCUPADO"));
+                fechar();
+                return;
+            }
+
+            server.registrar(apelido, this);
+            LOG.info("[+] " + apelido + " conectado de " + socket.getInetAddress());
+
+            // Notifica todos
+            server.broadcast(Payload.sistema("ENTROU:" + apelido), null);
+            server.broadcastListaUsuarios();
+
+            // Loop principal de leitura
+            Payload p;
+            while ((p = (Payload) in.readObject()) != null) {
+                rotear(p);
+            }
+
+        } catch (EOFException | java.net.SocketException ignored) {
+            // cliente desconectou
+        } catch (Exception e) {
+            LOG.warning("Erro no handler de " + apelido + ": " + e.getMessage());
+        } finally {
+            desconectar();
+        }
+    }
+
+    private void rotear(Payload p) {
+        if (p.isBroadcast()) {
+            server.broadcast(p, null);          // envia a todos incluindo remetente
+        } else {
+            server.privado(p);                  // envia só ao destinatário e ao remetente
+        }
+    }
+
+    public synchronized void enviar(Payload p) {
+        try {
+            out.writeObject(p);
+            out.flush();
+            out.reset(); // evita cache de objetos pelo ObjectOutputStream
+        } catch (IOException e) {
+            LOG.warning("Falha ao enviar para " + apelido + ": " + e.getMessage());
+        }
+    }
+
+    private void desconectar() {
+        if (apelido != null) {
+            server.remover(apelido);
+            server.broadcast(Payload.sistema("SAIU:" + apelido), null);
+            server.broadcastListaUsuarios();
+            LOG.info("[-] " + apelido + " desconectado.");
+        }
+        fechar();
+    }
+
+    private void fechar() {
+        try { socket.close(); } catch (IOException ignored) {}
+    }
+
+    public String getApelido() { return apelido; }
+}
